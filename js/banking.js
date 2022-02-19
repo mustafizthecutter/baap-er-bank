@@ -12,6 +12,12 @@ function updateValue(fieldId, inputValue) {
     const newValue = previousDepositValue + inputValue;
     deposit.innerText = newValue;
 }
+function getInnerText(fieldId) {
+    const fieldTag = document.getElementById(fieldId);
+    const fieldTagText = fieldTag.innerText;
+    const value = parseFloat(fieldTagText);
+    return value;
+}
 function updateBalance(inputValue, isAdding) {
     const totalBalance = document.getElementById('balance-total');
     const totalBalanceText = totalBalance.innerText;
@@ -35,7 +41,8 @@ document.getElementById("deposit-button").addEventListener('click', function () 
 });
 document.getElementById("withdraw-button").addEventListener('click', function () {
     const inputValue = getInput('withdraw-input');
-    if (inputValue) {
+    const balance = getInnerText('balance-total');
+    if (inputValue > 0 && balance >= inputValue) {
         updateValue('withdraw-total', inputValue);
         updateBalance(inputValue, false);
     }
